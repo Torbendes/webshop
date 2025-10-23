@@ -123,3 +123,18 @@ CREATE TABLE Reviews (
     )
 );
 GO
+
+/* =========================================
+   7️⃣ ItemPhotos
+   ========================================= */
+CREATE TABLE ItemPhotos (
+    photo_id INT IDENTITY(1,1) PRIMARY KEY,
+    item_id INT NOT NULL,
+    photo_data VARBINARY(MAX) NOT NULL,
+    created_at DATETIME DEFAULT GETDATE(),
+
+    CONSTRAINT FK_ItemPhotos_Item FOREIGN KEY (item_id)
+        REFERENCES Items(item_id)
+        ON DELETE CASCADE
+);
+GO
