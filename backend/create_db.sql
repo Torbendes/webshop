@@ -7,6 +7,7 @@
 -- 1️⃣ Create database and use it
 IF DB_ID('webshop') IS NULL
     CREATE DATABASE webshop;
+GO
 
 USE webshop;
 GO
