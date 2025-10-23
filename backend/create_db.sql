@@ -46,8 +46,7 @@ CREATE TABLE Warehouses (
     city NVARCHAR(50) NOT NULL,
     country NVARCHAR(50) NOT NULL,
 
-    capacity INT CHECK (capacity >= 0),
-    boss_employee_id INT NULL
+    capacity INT CHECK (capacity >= 0)
 );
 GO
 
