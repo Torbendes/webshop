@@ -33,27 +33,7 @@ CREATE TABLE Users (
 GO
 
 /* =========================================
-   3️⃣ Employees
-   ========================================= */
-CREATE TABLE Employees (
-    employee_id INT IDENTITY(1,1) PRIMARY KEY,
-    role NVARCHAR(50) NOT NULL,
-    hired_at DATETIME DEFAULT GETDATE(),
-    warehouse_id INT NULL,
-
-    -- Optional address
-    first_name NVARCHAR(50) NOT NULL,
-    last_name NVARCHAR(50) NOT NULL,
-    street NVARCHAR(100) NULL,
-    house_number NVARCHAR(10) NULL,
-    postal_code NVARCHAR(15) NULL,
-    city NVARCHAR(50) NULL,
-    country NVARCHAR(50) NULL
-);
-GO
-
-/* =========================================
-   4️⃣ Warehouses
+   3️⃣ Warehouses
    ========================================= */
 CREATE TABLE Warehouses (
     warehouse_id INT IDENTITY(1,1) PRIMARY KEY,
@@ -67,10 +47,32 @@ CREATE TABLE Warehouses (
     country NVARCHAR(50) NOT NULL,
 
     capacity INT CHECK (capacity >= 0),
-    boss_employee_id INT NULL,
+    boss_employee_id INT NULL
+);
+GO
 
-    CONSTRAINT FK_Warehouses_Boss FOREIGN KEY (boss_employee_id)
-        REFERENCES Employees(employee_id) ON DELETE SET NULL
+/* =========================================
+   4️⃣ Employees
+   ========================================= */
+CREATE TABLE Employees (
+    employee_id INT IDENTITY(1,1) PRIMARY KEY,
+    first_name NVARCHAR(50) NOT NULL,
+    last_name NVARCHAR(50) NOT NULL,
+    role NVARCHAR(50) NOT NULL,
+    hired_at DATETIME DEFAULT GETDATE(),
+    warehouse_id INT NULL,
+
+    -- Optional address
+    street NVARCHAR(100) NULL,
+    house_number NVARCHAR(10) NULL,
+    postal_code NVARCHAR(15) NULL,
+    city NVARCHAR(50) NULL,
+    country NVARCHAR(50) NULL,
+
+    -- Foreign key naar Warehouses
+    CONSTRAINT FK_Employees_Warehouse FOREIGN KEY (warehouse_id)
+        REFERENCES Warehouses(warehouse_id) 
+        ON DELETE SET NULL
 );
 GO
 
